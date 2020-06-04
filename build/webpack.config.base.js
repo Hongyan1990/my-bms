@@ -2,6 +2,7 @@ const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
 	entry: {app: path.resolve(__dirname, '../src/main.js')},
@@ -41,6 +42,9 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HTMLPlugin({template: path.join(__dirname, 'template.html'), title: 'hello scss'}),
-		new VueLoaderPlugin()
+		new VueLoaderPlugin(),
+		new MomentLocalesPlugin({
+            localesToKeep: ['es-us', 'zh-cn'],
+        }),
 	]
 }

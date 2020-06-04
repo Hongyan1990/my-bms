@@ -7,13 +7,13 @@ var cookie = {
     var exdate = new Date()
     exdate.setTime(exdate.getTime() + expiredays)
     exdate.setDate(exdate.getDate() + expiredays)
-    document.cookie = cName + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString() + ';path=/')
+    document.cookie = escape(cName) + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString() + ';path=/')
   },
   getCookie (name) {
     let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
     let arr = document.cookie.match(reg)
     if (arr) {
-      return (arr[2])
+      return (unescape(arr[2]))
     } else {
       return null
     }

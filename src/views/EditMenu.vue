@@ -1,58 +1,76 @@
 <template>
 	<div>
-		<el-dialog  :close-on-click-modal="false" title="修改菜单" :visible.sync="dialogVisibale">
-	    <el-form  label-width="70px"  :inline="true" :model="rowData"  class="demo-form-inline">
-		    <el-form-item label="店铺名称">
-		      <el-input v-model="rowData.shopname" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="店铺地址">
-		      <el-input v-model="rowData.address" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="电话">
-		      <el-input v-model="rowData.phone" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="经营时间">
-		      <el-input v-model="rowData.open_time" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="配送时间">
-		      <el-input v-model="rowData.delivery_time" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="综合评分">
-		      <el-input v-model="rowData.scores" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="起送价">
-		      <el-input v-model="rowData.price" autocomplete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="类别">
-		      <el-input v-model="rowData.family" autocomplete="off"></el-input>
-		    </el-form-item>
-		  </el-form>
+		<el-dialog  :close-on-click-modal="false" title="打卡" :visible.sync="dialogVisibale">
+	    	<div >
+	    		<el-upload
+					  class="upload-demo"
+					  action="/api/file/upload"
+					  :data="uploadData"
+					  :on-success="handleAvatarSuccess"
+					  :show-file-list="false">
+		      	<el-button type="primary" size="small">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
+					</el-upload>
+	    	</div>
+	    	<div style="margin-top: 10px;">
+	    		<el-table
+					    :data="attendanceData"
+              stripe
+					    style="width: 100%">
+					    <template slot="empty">
+	                <img :src="imgUrl" style="width: 200px; margin-top: 20px;"/>
+	                <p style="margin: 0; line-height: 30px">暂无数据</p>
+	            </template>
+					    <el-table-column label="ID">
+					      <template slot-scope="scope">
+					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					      </template>
+					    </el-table-column>
+					    <el-table-column label="姓名">
+					      <template slot-scope="scope">
+					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					      </template>
+					    </el-table-column>
+					    <el-table-column label="签到时间">
+					      <template slot-scope="scope">
+					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					      </template>
+					    </el-table-column>
+					    <el-table-column label="本月签到次数">
+					      <template slot-scope="scope">
+					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					      </template>
+					    </el-table-column>
+					  </el-table>
+	    	</div>
 	      <div slot="footer" class="dialog-footer">
-	        <el-button @click="closeMenuDialog">取 消</el-button>
-	        <el-button type="primary" @click="editMenu" :disabled="validateErr">确 定</el-button>
+	        <el-button type="primary" @click="closeMenuDialog">返 回</el-button>
 	      </div>
-	    </el-dialog>
+	  </el-dialog>
 	</div>
 </template>
 
 <script>
 	import {updateMenu} from '../model/client-model.js'
+	import imgUrl from '../static/no-data2.png'
 	export default {
 		name: 'editmenu',
 		props: {
 	      isShowEditDialog: {
 	        type: Boolean,
 	        default: false
-	      },
-	      rowData: {
-	      	type: Object
-	      },
+	      }
 	    },
 		data () {
 			return {
 				formLabelWidth: '100px',
 				validateErr: false,
-				validateMsg: ''
+				validateMsg: '',
+				textarea: '',
+				attendanceData: [],
+				uploadData: {
+		    	directory: '\/user'
+		    },
+		    imgUrl
 			}
 		},
 		computed: {
@@ -70,6 +88,12 @@
 	    	closeMenuDialog () {
 	    		this.$emit('closeEditMenuDialog')
 	    	},
+	    	handleAvatarSuccess() {
+					this.$message({
+			          message: '上传成功',
+			          type: 'success'
+			        });
+				},
 	    	editMenu () {
 	    		const jsonData = Object.assign({}, this.rowData, {id: this.rowData.rowKey}) 
 	    		updateMenu(jsonData)

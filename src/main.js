@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Vuex from 'vuex'
 import {
   Button, Container, Header, Main, Row, Col,
   Table, TableColumn, Dialog, Input, Form, FormItem,
@@ -13,10 +14,12 @@ import {
 import App from './app.vue'
 // /home/hongyan/Desktop/hongyan/my-order/dist
 import router from './routes/router.js'
+import createStore from './store/store.js'
 import cookie from './util/cookie.js'
 import './style.css'
 
 Vue.use(Router)
+Vue.use(Vuex)
 
 Vue.use(Button)
 Vue.use(Container)
@@ -42,8 +45,11 @@ Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
 Vue.prototype.$message = Message
 
+const store = createStore()
+
 router.beforeEach((to, from, next) => {
   const username = cookie.getCookie('username')
+  store.dispatch('saveUsername', username)
   if(username === null && to.path !== '/login') {
   	next('/login')
   } else {
@@ -59,7 +65,9 @@ router.afterEach((to, from) => {
   console.log('router after each')
 })
 
+
 new Vue({
 	router,
+  store,
 	render: h => h(App)
 }).$mount('#root')

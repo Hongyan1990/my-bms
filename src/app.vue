@@ -1,14 +1,14 @@
 <template>
 	<div class="my-box">
-		<!-- <div class="content" :style="{height: localHeight + 'px'}">
+		<div class="content" :style="{height: localHeight + 'px'}">
 			<order-header></order-header>
 			
 			<div class="main" :style="{height: localHeight - 90 + 'px'}">
 				<router-view></router-view>
 			</div>
 			
-		</div> -->
-		<el-container :style="{height: localHeight + 'px'}">
+		</div>
+		<!-- <el-container :style="{height: localHeight + 'px'}">
 		  <el-header style="padding: 0px;">
 		  	<order-header></order-header>
 		  </el-header>
@@ -18,7 +18,7 @@
 		    </el-aside>
 		    <el-main>Main</el-main>
 		  </el-container>
-		</el-container>	
+		</el-container> -->	
 	</div>
 </template>
 
