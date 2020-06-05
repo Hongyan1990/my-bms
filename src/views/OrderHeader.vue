@@ -2,7 +2,7 @@
     <header>
         <!--<h1 :class="$style.myTitle">积分商城</h1>-->
       <div class="my-header">
-        <div class="logo" style="color: #4d3cff"><span class="logo-icon"></span>考勤管理</div>
+        <div class="logo" style="color: #4d3cff"><span class="logo-icon"></span>考核管理</div>
         <div class="user-info"><span style="color: #4d3cff;font-weight: 777;">{{userName}}</span>员工，您好，今天是<span>{{nowDate}}</span><span class="login-out" @click="loginOut">退出</span></div>
       </div>
     </header>

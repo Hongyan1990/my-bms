@@ -17,49 +17,49 @@
 					    <el-table-column
 					      label="ID">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.id }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="姓名">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.food_style}}</span>
+					        <span>{{scope.row.b}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="性别">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.taste}}</span>
+					        <span>{{scope.row.c}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="工作年限">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.d}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月迟到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.e}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月请假次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.f}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月签到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.g}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月加班次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.h}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="操作" width="150">
@@ -88,13 +88,13 @@
 					    <el-table-column
 					      label="请假员工" width="200">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.name }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="请假理由">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.b }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="操作" width="150">
@@ -122,22 +122,22 @@
 	            </template>
 					    <el-table-column label="ID">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.id }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="姓名">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.b }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="签到时间">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.c }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="本月签到次数">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.d }}</span>
 					      </template>
 					    </el-table-column>
 					  </el-table>
@@ -157,17 +157,17 @@
 	            </template>
 					    <el-table-column label="员工ID">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.id }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="本月成绩">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.b }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column label="排名">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.c }}</span>
 					      </template>
 					    </el-table-column>
 					    
@@ -216,11 +216,26 @@
 		    	directory: '\/user'
 		    },
 		    imgUrl,
-		    recommendData: [{id: '123'}],
-		    leaveData: [{name: 'xxx'}],
+		    recommendData: [
+		    	{'a': '423985', b: '刘忠诚', c: '男', d: '2年', e: '1', f: '2', g: '20', h: '5'},
+		    	{'a': '424570', b: '张翔', c: '男', d: '1年', e: '0', f: '0', g: '22', h: '8'},
+		    	{'a': '423970', b: '许二和', c: '男', d: '4年', e: '2', f: '3', g: '19', h: '2'},
+		    ],
+		    leaveData: [
+		    	{a: '赵一搏', b: '参加朋友婚礼'},
+		    	{a: '何亮', b: '回家探亲'},
+		    ],
 		    activeName: 'first',
-		    attendanceData: [{id: '123'}],
-		    performanceData: [{id: '123'}]
+		    attendanceData: [
+		    	{'a': '423985', b: '刘忠诚', c: '2020-06-22 18:03', d: '20'},
+		    	{'a': '424570', b: '张翔', c: '2020-06-23 18:06', d: '22'},
+		    	{'a': '423970', b: '许二和', c: '2020-06-22 18:11', d: '19'},
+		    ],
+		    performanceData: [
+		    	{'a': '423985', b: '98.5', c: '1'},
+		    	{'a': '424570', b: '96.7', c: '2'},
+		    	{'a': '423970', b: '95', c: '3'},
+		    ]
 			}
 		},
 		methods: {

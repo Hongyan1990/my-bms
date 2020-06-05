@@ -1,6 +1,6 @@
 <template>
   <div class="login-bg">
-    <h1>考勤管理</h1>
+    <h1>考核管理</h1>
     <form class="login" @submit="login">
       <h2>
         <span>Login</span>

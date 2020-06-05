@@ -21,49 +21,49 @@
 					    <el-table-column
 					      label="ID">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.food_name }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="姓名">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.food_style}}</span>
+					        <span>{{scope.row.b}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="性别">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.taste}}</span>
+					        <span>{{scope.row.c}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="工作年限">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.d}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月迟到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.e}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月请假次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.f}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月签到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.g}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月加班次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.is_combo}}</span>
+					        <span>{{scope.row.h}}</span>
 					      </template>
 					    </el-table-column>
 					  </el-table>
@@ -84,43 +84,43 @@
 					    <el-table-column
 					      label="商品代号">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.rowKey }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="商品单价">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.shopname}}</span>
+					        <span>{{scope.row.b}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="销售数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.food_name}}</span>
+					        <span>{{scope.row.c}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="用户好评数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.address}}</span>
+					        <span>{{scope.row.d}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="用户差评数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.open_time}}</span>
+					        <span>{{scope.row.e}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="好评率">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.delivery_time}}</span>
+					        <span>{{scope.row.f}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="销售额">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.scores}}</span>
+					        <span>{{scope.row.g}}</span>
 					      </template>
 					    </el-table-column>
 					    
@@ -151,10 +151,16 @@
 			return {
 				loading: false,
 				activeName: 'first',
-				hotTableData: [],
+				hotTableData: [
+					{a: '0032', b: '25', c: '1000', d: '868', e: '132', f: '86.8%', g: '25000'},
+					{a: '0033', b: '15', c: '500', d: '450', e: '50', f: '90%', g: '7500'},
+					{a: '0034', b: '20', c: '1000', d: '900', e: '100', f: '90%', g: '18000'},
+				],
 				tableData: [],
         multipleSelection: [],
-        recommendData: [],
+        recommendData: [
+        	{'a': '423971', b: '刘亮', c: '男', d: '4年', e: '2', f: '3', g: '19', h: '2'}
+        ],
         imgUrl,
         dialogFormVisible: false,
         editDialogFormVisible: false
