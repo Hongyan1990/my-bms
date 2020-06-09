@@ -21,6 +21,10 @@ const config = merge(baseConfig, {
 	      '/face': {
 	        target: 'http://192.168.18.99:9099',
 	        changeOrigin: true
+	      },
+	      '/user': {
+	        target: 'http://192.168.18.99:9099',
+	        changeOrigin: true
 	      }
 	    },
 		contentBase: path.join(__dirname, '../dist'),
