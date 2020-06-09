@@ -32,9 +32,9 @@ export default {
   },
   methods: {
     login (e) {
-    	e.preventDefault()
+      e.preventDefault()
 
-    	if(this.validteForm()) {
+      if(this.validteForm()) {
         login(this.username)
           .then(res => {
             if(res.code === -1) {
@@ -52,9 +52,9 @@ export default {
           .catch(err => {
             console.log(err)
           })
-    		
-			  
-    	}
+        
+        
+      }
     },
     validteForm () {
       if (!this.username) {
@@ -66,12 +66,12 @@ export default {
         return false
       }
       if (this.username === 'admin' && this.password !== 'admin') {
-      	this.errMsg = '密码不正确'
-      	return false
+        this.errMsg = '密码不正确'
+        return false
       }
       if (this.username !== 'admin' && this.password !== '123456') {
-      	this.errMsg = '密码不正确'
-      	return false
+        this.errMsg = '密码不正确'
+        return false
       }
       this.errMsg = ''
       return true

@@ -8,12 +8,15 @@ module.exports = async (ctx, next) => {
     .join('userInfo', 'sell.userid', 'userInfo.user_id')
     .orderBy('sell.id', 'desc')
   let sellList
+  let count
   if (userid) {
-    sellList = await mysqlSelect.where('sell.openId', userid)
+    sellList = await mysqlSelect.where('sell.userid', userid)
   } else {
-    sellList = await mysqlSelect.limit(size).offset(Number(page) * size)
+    sellList = await mysqlSelect.limit(size).offset(Number(page-1) * size)
+    count = await DB('sell').count('id')
   }
   ctx.state.data = {
-    sellList
+    sellList,
+    count: count ? count[0]['count(`id`)']: 0
   }
 }

@@ -4,8 +4,8 @@
 		  	<el-tab-pane label="我的考勤" name="first">
 		    	<el-main>
 		    		<section>
-		    			<el-button size="small" @click="dialogFormVisible=true">申请请假</el-button>
-		    			<el-button size="small">申请加班</el-button>
+		    			<el-button size="small" :disabled="askLeave===1" @click="dialogFormVisible=true">申请请假</el-button>
+		    			<el-button size="small" :disabled="apply_overtime===1" @click="applyMyOvertime">申请加班</el-button>
 		    			<el-button size="small" type="primary" @click="editDialogFormVisible=true">打卡</el-button>
 		    		</section>
 				  	<el-table
@@ -21,49 +21,49 @@
 					    <el-table-column
 					      label="ID">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.userid }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="姓名">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.b}}</span>
+					        <span>{{scope.row.user_name}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="性别">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.c}}</span>
+					        <span>{{scope.row.sex === '1' ? '男': '女'}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="工作年限">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.d}}</span>
+					        <span>{{scope.row.year_work}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月迟到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.e}}</span>
+					        <span>{{scope.row.late_count}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月请假次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.f}}</span>
+					        <span>{{scope.row.leave_count}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月签到次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.g}}</span>
+					        <span>{{scope.row.sign_count}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="本月加班次数">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.h}}</span>
+					        <span>{{scope.row.overtime_count}}</span>
 					      </template>
 					    </el-table-column>
 					  </el-table>
@@ -84,43 +84,43 @@
 					    <el-table-column
 					      label="商品代号">
 					      <template slot-scope="scope">
-					        <span style="margin-left: 10px">{{ scope.row.a }}</span>
+					        <span style="margin-left: 10px">{{ scope.row.goods_id }}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="商品单价">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.b}}</span>
+					        <span>{{scope.row.price}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="销售数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.c}}</span>
+					        <span>{{scope.row.sell_count}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="用户好评数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.d}}</span>
+					        <span>{{scope.row.favorable}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="用户差评数量">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.e}}</span>
+					        <span>{{scope.row.negative}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="好评率">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.f}}</span>
+					        <span>{{scope.row.favorable_rate*100+'%'}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column
 					      label="销售额">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.g}}</span>
+					        <span>{{scope.row.saleroom}}</span>
 					      </template>
 					    </el-table-column>
 					    
@@ -130,6 +130,7 @@
 		 </el-tabs>
 		 <add-menu 
 			:isShowDialog="dialogFormVisible"
+			:userid="userid"
 			@closeCreateMenuDialog="closeCreateMenuDialog">
 		</add-menu>
 		<edit-menu
@@ -139,7 +140,7 @@
 	</div>
 </template>
 <script>
-	import {getAllMenus, addOrder} from '../model/client-model.js'
+	import {getSignInfo, applyOvertime, getSellData} from '../model/client-model.js'
 	import AddMenu from './AddMenu.vue'
 	import EditMenu from './EditMenu.vue'
 	import imgUrl from '../static/no-data2.png'
@@ -152,14 +153,15 @@
 			return {
 				loading: false,
 				activeName: 'first',
-				hotTableData: [
-				],
+				hotTableData: [],
 				tableData: [],
-		        multipleSelection: [],
-		        recommendData: [],
-		        imgUrl,
-		        dialogFormVisible: false,
-		        editDialogFormVisible: false
+        multipleSelection: [],
+        recommendData: [],
+        imgUrl,
+        dialogFormVisible: false,
+        editDialogFormVisible: false,
+        askLeave: 0,
+        apply_overtime: 0
 			}
 		},
 		computed: {
@@ -171,17 +173,49 @@
 			handleSelectionChange (val) {
 			},
 			handleClick(tab, event) {
-				
+				if(this.activeName === 'first') {
+					this.getSignInfos()
+				} else {
+					this.getMySellData()
+				}
 		  },
 		  closeCreateMenuDialog (flag) {
 				this.dialogFormVisible = false
+				if(flag === 'success') {
+					this.getSignInfos()
+				}
 			},
 			closeEditMenuDialog (flag) {
 				this.editDialogFormVisible = false
 			},
+			getSignInfos() {
+				getSignInfo(this.userid)
+					.then(res => {
+						this.recommendData = []
+						this.recommendData = Array.prototype.slice.call(res.data.signList)
+						this.askLeave = res.data.signList[0].ask_leave
+						this.apply_overtime = res.data.signList[0].apply_overtime
+					})
+					.catch(err => {})
+			},
+			applyMyOvertime() {
+				applyOvertime(this.userid)
+					.then(res => {
+						this.getSignInfos()
+					})
+					.catch(err => {})
+			},
+			getMySellData() {
+				getSellData(this.userid)
+					.then(res => {
+
+						this.hotTableData = Array.prototype.slice.call(res.data.sellList)
+					})
+					.catch(err => {})
+			}
 		},
 		mounted () {
-			
+			this.getSignInfos()
 		}
 	}
 </script>

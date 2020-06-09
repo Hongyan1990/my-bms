@@ -1,9 +1,17 @@
 import Router from 'vue-router'
+import cookie from '../util/cookie.js'
 
 const routes = [
 	{
 		path: '/',
-		redirect: '/order'
+		beforeEnter:(to, from, next) => {
+			const username = cookie.getCookie('username')
+			if(username === 'admin') {
+				next('/order')
+			} else {
+				next('/user')
+			}
+		}
 	},
 	{
 		path: '/order',

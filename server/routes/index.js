@@ -34,4 +34,7 @@ router.get('/applyleave', controllers.applyleave)
 // 获取打卡数据
 router.get('/signdata', controllers.signdata)
 
+// 获取员工绩效
+router.get('/performance', controllers.performance)
+
 module.exports = router

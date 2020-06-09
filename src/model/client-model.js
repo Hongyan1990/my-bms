@@ -41,17 +41,29 @@ module.exports = {
   getSignData (userid) {
     return handleRequest(request.get(`api/signdata/?userid=${userid}`))
   },
-  addMenu (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'shop', 'object': data}))
+  getSignInfo (userid) {
+    return handleRequest(request.get(`api/signinfo/?userid=${userid}`))
   },
-  updateMenu (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'shop', 'object': data}))
+  getSignInfoByPage (page) {
+    return handleRequest(request.get(`api/signinfo/?page=${page}`))
   },
-  deleteMenu (id) {
-    return handleRequest(request.delete(`api/data/?tableName=shop&rowKey=${id}`))
+  applyLeave (data) {
+    return handleRequest(request.post('api/leave/', data))
   },
-  addOrder (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'order', 'object': data}))
+  applyOvertime (userid) {
+    return handleRequest(request.get(`api/overtime/?userid=${userid}`))
+  },
+  getSellData (userid) {
+    return handleRequest(request.get(`api/sell/?userid=${userid}`))
+  },
+  getPerformance (page) {
+    return handleRequest(request.get(`api/performance/?page=${page}`))
+  },
+  approveOvertime (userid, count) {
+    return handleRequest(request.get(`api/applywork/?userid=${userid}&count=${count}`))
+  },
+  approveLeave (userid, count) {
+    return handleRequest(request.get(`api/applyleave/?userid=${userid}&count=${count}`))
   },
   login (username) {
     return handleRequest(request.get(`api/login/?user_name=${username}`))

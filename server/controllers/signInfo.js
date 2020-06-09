@@ -7,13 +7,17 @@ module.exports = async (ctx, next) => {
     .select('attendance.*', 'userInfo.*')
     .join('userInfo', 'attendance.userid', 'userInfo.user_id')
     .orderBy('attendance.id', 'desc')
+
   let signList
+  let count
   if (userid) {
-    signList = await mysqlSelect.where('attendance.openId', userid)
+    signList = await mysqlSelect.where('attendance.userid', userid)
   } else {
-    signList = await mysqlSelect.limit(size).offset(Number(page) * size)
+    signList = await mysqlSelect.limit(size).offset(Number(page-1) * size)
+    count = await DB('attendance').count('id')
   }
   ctx.state.data = {
-    signList
+    signList,
+    count: count ? count[0]['count(`id`)']: 0
   }
 }
