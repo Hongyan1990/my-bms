@@ -60,3 +60,11 @@ create table sell (
     performance varchar(100),
     rank int not null
 )
+
+create table perform (
+    id int not null auto_increment primary key,
+    userid varchar(100) not null,
+    performance float,
+    remark varchar(100)
+)
+

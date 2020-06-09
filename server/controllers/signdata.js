@@ -8,7 +8,6 @@ module.exports = async (ctx) => {
 		    .select('sign.*', 'userInfo.*')
 		    .join('userInfo', 'sign.userid', 'userInfo.user_id')
 		    .orderBy('sign.id', 'desc')
-	console.log(mysqlSelect)
 	res = mysqlSelect[0]
 
 	ctx.state.data = {

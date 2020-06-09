@@ -8,7 +8,7 @@ import {
   Menu,
   Submenu,
   MenuItem,
-  MenuItemGroup,
+  MenuItemGroup, Pagination
 } from 'element-ui'
 
 import App from './app.vue'
@@ -43,6 +43,7 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
+Vue.use(Pagination)
 Vue.prototype.$message = Message
 
 const store = createStore()

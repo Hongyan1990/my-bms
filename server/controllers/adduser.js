@@ -11,11 +11,11 @@
     performance varchar(100),
     rank int not null*/
 // const userList = [
-// 	{user_id: '3297', user_name: 'admin', sex: '1', year_work: '0', auth: '0'},
-// 	{user_id: '2917', user_name: '何良', sex: '1', year_work: '3', auth: '1'},
-// 	{user_id: '6799', user_name: '张红', sex: '0', year_work: '5', auth: '1'},
-// 	{user_id: '9078', user_name: '刘星辰', sex: '1', year_work: '2', auth: '1'},
-// 	{user_id: '2242', user_name: '赵亮', sex: '1', year_work: '4', auth: '1'},
+// 	{userid: '3297', performance: 98.00, remark: ''},
+// 	{userid: '2917', performance: 95.00, remark: ''},
+// 	{userid: '6799', performance: 89.00, remark: ''},
+// 	{userid: '9078', performance: 92.00, remark: ''},
+// 	{userid: '2242', performance: 96.00, remark: ''},
 // ]
 
 // const userList = [
@@ -24,10 +24,10 @@
 // ]
 
 // userList.map(async (data) => {
-// 	const {userid, goods_id, price, sell_count, favorable, negative, favorable_rate, saleroom, performance, rank} = data
+// 	const {userid, performance, remark} = data
 // 	try {
 //     console.log('开始存储')
-//     await DB('sell').insert({userid, goods_id, price, sell_count, favorable, negative, favorable_rate, saleroom, performance, rank})
+//     await DB('perform').insert({userid, performance, remark})
 //     console.log('存储完成')
 //   } catch (e) {
 //     console.log(e)

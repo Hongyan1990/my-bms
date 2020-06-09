@@ -44,6 +44,9 @@ module.exports = {
   getSignInfo (userid) {
     return handleRequest(request.get(`api/signinfo/?userid=${userid}`))
   },
+  getSignInfoByPage (page) {
+    return handleRequest(request.get(`api/signinfo/?page=${page}`))
+  },
   applyLeave (data) {
     return handleRequest(request.post('api/leave/', data))
   },
@@ -53,8 +56,14 @@ module.exports = {
   getSellData (userid) {
     return handleRequest(request.get(`api/sell/?userid=${userid}`))
   },
-  addOrder (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'order', 'object': data}))
+  getPerformance (page) {
+    return handleRequest(request.get(`api/performance/?page=${page}`))
+  },
+  approveOvertime (userid, count) {
+    return handleRequest(request.get(`api/applywork/?userid=${userid}&count=${count}`))
+  },
+  approveLeave (userid, count) {
+    return handleRequest(request.get(`api/applyleave/?userid=${userid}&count=${count}`))
   },
   login (username) {
     return handleRequest(request.get(`api/login/?user_name=${username}`))
