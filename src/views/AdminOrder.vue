@@ -22,6 +22,15 @@
 				  	<employee-performance :imgUrl="imgUrl"></employee-performance>
 				  </el-main>
 		    </el-tab-pane>
+		    <el-tab-pane label="智能添加" name="five">
+		    	<el-main>
+				  	<iframe  name = "iframeMap" id="iframeMapViewComponent"  src="dist/test.html"
+               width="100%" :height="localHeight-40"
+               frameborder="0" scrolling="no" ref="iframeDom"
+      			></iframe>
+				  </el-main>
+		    </el-tab-pane>
+		    
 		 </el-tabs>
 	  </el-main>
 	</div>
@@ -63,6 +72,9 @@
 		computed: {
 			userid() {
 				return this.$store.state.userid
+			},
+			localHeight () {
+				return window.innerHeight;
 			}
 		},
 		methods: {

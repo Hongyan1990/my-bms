@@ -42,6 +42,7 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HTMLPlugin({template: path.join(__dirname, 'template.html'), title: 'hello scss'}),
+		new HTMLPlugin({template: path.resolve(__dirname, '../public/test.html'), filename: 'test.html'}),
 		new VueLoaderPlugin(),
 		new MomentLocalesPlugin({
             localesToKeep: ['es-us', 'zh-cn'],
