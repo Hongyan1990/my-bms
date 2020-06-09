@@ -38,8 +38,8 @@ const handleRequest = (request) => {
 }
 
 module.exports = {
-  getAllMenus (table) {
-    return handleRequest(request.get(`api/data/?tableName=${table}`))
+  getSignData (userid) {
+    return handleRequest(request.get(`api/signdata/?userid=${userid}`))
   },
   addMenu (data) {
     return handleRequest(request.post('api/data/', {tableName: 'shop', 'object': data}))
@@ -52,5 +52,8 @@ module.exports = {
   },
   addOrder (data) {
     return handleRequest(request.post('api/data/', {tableName: 'order', 'object': data}))
+  },
+  login (username) {
+    return handleRequest(request.get(`api/login/?user_name=${username}`))
   }
 }

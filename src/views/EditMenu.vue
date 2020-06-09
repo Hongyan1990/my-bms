@@ -4,8 +4,7 @@
 	    	<div >
 	    		<el-upload
 					  class="upload-demo"
-					  action="/api/file/upload"
-					  :data="uploadData"
+					  :action="path"
 					  :on-success="handleAvatarSuccess"
 					  :show-file-list="false">
 		      	<el-button type="primary" size="small">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
@@ -50,7 +49,7 @@
 </template>
 
 <script>
-	import {updateMenu} from '../model/client-model.js'
+	import {getSignData} from '../model/client-model.js'
 	import imgUrl from '../static/no-data2.png'
 	export default {
 		name: 'editmenu',
@@ -58,6 +57,9 @@
 	      isShowEditDialog: {
 	        type: Boolean,
 	        default: false
+	      },
+	      userid: {
+	      	type: String
 	      }
 	    },
 		data () {
@@ -67,10 +69,7 @@
 				validateMsg: '',
 				textarea: '',
 				attendanceData: [],
-				uploadData: {
-		    	directory: '\/user'
-		    },
-		    imgUrl
+		    	imgUrl
 			}
 		},
 		computed: {
@@ -82,18 +81,35 @@
 	          this.$emit('closeEditMenuDialog')
 	        }
 	      },
-
+	      path() {
+	      	return `/api/sign/?userid=${this.userid}`
+	      }
 	    },
 	    methods: {
 	    	closeMenuDialog () {
 	    		this.$emit('closeEditMenuDialog')
 	    	},
-	    	handleAvatarSuccess() {
-					this.$message({
+	    	handleAvatarSuccess(res) {
+	    		console.log(res)
+	    		if(res.code === 0) {
+	    			this.$message({
 			          message: '上传成功',
 			          type: 'success'
 			        });
-				},
+	    			getSignData(this.userid)
+	    				.then(res => {
+
+
+
+
+
+	    				})
+	    				.catch(err => {
+	    					
+	    				})
+	    		}
+				
+			},
 	    	editMenu () {
 	    		const jsonData = Object.assign({}, this.rowData, {id: this.rowData.rowKey}) 
 	    		updateMenu(jsonData)
@@ -108,6 +124,9 @@
 	    				this.$message.error('修改菜单失败');
 	    			})
 	    	}
+	    },
+	    mounted () {
+	    	
 	    }
 	}
 

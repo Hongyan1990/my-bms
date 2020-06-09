@@ -49,7 +49,9 @@ const store = createStore()
 
 router.beforeEach((to, from, next) => {
   const username = cookie.getCookie('username')
+  const userid = cookie.getCookie('userid')
   store.dispatch('saveUsername', username)
+  store.dispatch('saveUserid', userid)
   if(username === null && to.path !== '/login') {
   	next('/login')
   } else {

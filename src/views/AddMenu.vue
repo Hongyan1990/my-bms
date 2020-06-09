@@ -34,7 +34,8 @@
 				textarea: '',
 				formLabelWidth: '100px',
 				validateErr: false,
-				validateMsg: ''
+				validateMsg: '',
+				rowData: {}
 			}
 		},
 		computed: {

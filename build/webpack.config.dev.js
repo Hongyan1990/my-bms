@@ -15,7 +15,7 @@ const config = merge(baseConfig, {
 		headers: { 'Access-Control-Allow-Origin': '*' },
 	    proxy: {
 	      '/api': {
-	        target: 'http://192.168.18.99:8080',
+	        target: 'http://localhost:5757',
 	        changeOrigin: true
 	      }
 	    },

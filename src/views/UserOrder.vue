@@ -12,7 +12,7 @@
 					    :data="recommendData"
 					    v-loading="loading"
 					    max-height="500px"
-              			stripe
+              stripe
 					    style="width: 100%">
 					    <template slot="empty">
 			                <img :src="imgUrl" style="width: 200px; margin-top: 20px;"/>
@@ -134,6 +134,7 @@
 		</add-menu>
 		<edit-menu
 			:isShowEditDialog="editDialogFormVisible"
+			:userid="userid"
 			@closeEditMenuDialog="closeEditMenuDialog"></edit-menu>
 	</div>
 </template>
@@ -152,34 +153,25 @@
 				loading: false,
 				activeName: 'first',
 				hotTableData: [
-					{a: '0032', b: '25', c: '1000', d: '868', e: '132', f: '86.8%', g: '25000'},
-					{a: '0033', b: '15', c: '500', d: '450', e: '50', f: '90%', g: '7500'},
-					{a: '0034', b: '20', c: '1000', d: '900', e: '100', f: '90%', g: '18000'},
 				],
 				tableData: [],
-        multipleSelection: [],
-        recommendData: [
-        	{'a': '423971', b: '刘亮', c: '男', d: '4年', e: '2', f: '3', g: '19', h: '2'}
-        ],
-        imgUrl,
-        dialogFormVisible: false,
-        editDialogFormVisible: false
+		        multipleSelection: [],
+		        recommendData: [],
+		        imgUrl,
+		        dialogFormVisible: false,
+		        editDialogFormVisible: false
+			}
+		},
+		computed: {
+			userid() {
+				return this.$store.state.userid
 			}
 		},
 		methods: {
 			handleSelectionChange (val) {
-				this.multipleSelection = val
-				// console.log(this.multipleSelection)
-
 			},
 			handleClick(tab, event) {
-				if(this.activeName === 'first') {
-					this.getMyMenus('recommend');
-				} else if(this.activeName === 'second') {
-        	this.getMyMenus('food');
-        } else {
-        	this.getMyMenus('shop');
-        }
+				
 		  },
 		  closeCreateMenuDialog (flag) {
 				this.dialogFormVisible = false
@@ -187,55 +179,9 @@
 			closeEditMenuDialog (flag) {
 				this.editDialogFormVisible = false
 			},
-			async addMyOrder () {
-				
-				// const len = this.multipleSelection.length;
-				// const selects = this.multipleSelection;
-				for(let data of this.multipleSelection) {
-					const jsonData = Object.assign({}, data, {id: data.rowKey})
-					delete jsonData.rowKey
-					try {
-						await addOrder(jsonData)
-					} catch (err) {
-						this.$message.error('新增订单失败');
-					}
-				}
-				this.$message({
-		          message: '新增订单成功',
-		          type: 'success'
-		        });
-		        this.getMyMenus('shop');
-				// addOrder(this.multipleSelection)
-				// 	.then(res => {
-				// 		this.$message({
-				//           message: '新增订单成功',
-				//           type: 'success'
-				//         });
-				//         this.getMenus();
-				// 	})
-				// 	.catch(err => {
-				// 		this.$message.error('新增订单失败');
-				// 	})
-			},
-			getMyMenus (table) {
-				getAllMenus(table)
-					.then(data => {
-						this.loading = false;
-						if(table === 'food') {
-							this.hotTableData = data.data;
-						} else if(table === 'recommend') {
-							this.recommendData = data.data;
-						} else {
-							this.tableData = data.data;
-						}
-					})
-					.catch(err => {
-						this.loading = false;
-					})
-			}
 		},
 		mounted () {
-			this.getMyMenus('food');
+			
 		}
 	}
 </script>

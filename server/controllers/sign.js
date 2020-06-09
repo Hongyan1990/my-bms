@@ -2,13 +2,15 @@ const DB = require('../db.js')
 const {port, host} = require('../config.js')
 
 module.exports = async (ctx) => {
-	const {userid} = ctx.request.body
+	console.log('-------------->', ctx.request.query)
+	const {userid} = ctx.request.query
 	const url = 'http://' + host + ':' + port 
-	const imgPath = url + '/' + ctx.req.file.filename
+	const imgPath = url + '/public/uploads/' + ctx.req.file.filename
 	const searchSign = await DB('sign').select().where('userid', userid)
 	const searchAttendance = await DB('attendance').select().where('userid', userid)
     const count = searchSign.length + 1;
     let res
+    console.log('-------------------1------------------')
     try {
     	await DB('sign').insert({userid, image:imgPath, count })
     	if(searchAttendance.length) {
