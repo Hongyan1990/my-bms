@@ -38,19 +38,25 @@ const handleRequest = (request) => {
 }
 
 module.exports = {
-  getAllMenus (table) {
-    return handleRequest(request.get(`api/data/?tableName=${table}`))
+  getSignData (userid) {
+    return handleRequest(request.get(`api/signdata/?userid=${userid}`))
   },
-  addMenu (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'shop', 'object': data}))
+  getSignInfo (userid) {
+    return handleRequest(request.get(`api/signinfo/?userid=${userid}`))
   },
-  updateMenu (data) {
-    return handleRequest(request.post('api/data/', {tableName: 'shop', 'object': data}))
+  applyLeave (data) {
+    return handleRequest(request.post('api/leave/', data))
   },
-  deleteMenu (id) {
-    return handleRequest(request.delete(`api/data/?tableName=shop&rowKey=${id}`))
+  applyOvertime (userid) {
+    return handleRequest(request.get(`api/overtime/?userid=${userid}`))
+  },
+  getSellData (userid) {
+    return handleRequest(request.get(`api/sell/?userid=${userid}`))
   },
   addOrder (data) {
     return handleRequest(request.post('api/data/', {tableName: 'order', 'object': data}))
+  },
+  login (username) {
+    return handleRequest(request.get(`api/login/?user_name=${username}`))
   }
 }

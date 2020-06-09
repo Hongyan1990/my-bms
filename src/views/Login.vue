@@ -17,6 +17,7 @@
 
 <script>
 import cookie from '../util/cookie.js'
+import {login} from '../model/client-model.js'
 export default {
   name: 'Login',
   metaInfo: {
@@ -31,16 +32,29 @@ export default {
   },
   methods: {
     login (e) {
-    	e.preventDefault()
-    	if(this.validteForm()) {
-    		cookie.setCookie('username', this.username, 1)
-        if(this.username === 'admin') {
-          this.$router.push('/order')
-        } else {
-          this.$router.push('/user')
-        }
-			  
-    	}
+      e.preventDefault()
+
+      if(this.validteForm()) {
+        login(this.username)
+          .then(res => {
+            if(res.code === -1) {
+              this.$message.error(res.data.msg);
+              return
+            }
+            cookie.setCookie('username', this.username, 1)
+            cookie.setCookie('userid', res.data.userid, 1)
+            if(this.username === 'admin') {
+              this.$router.push('/order')
+            } else {
+              this.$router.push('/user')
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        
+        
+      }
     },
     validteForm () {
       if (!this.username) {
@@ -52,12 +66,12 @@ export default {
         return false
       }
       if (this.username === 'admin' && this.password !== 'admin') {
-      	this.errMsg = '密码不正确'
-      	return false
+        this.errMsg = '密码不正确'
+        return false
       }
       if (this.username !== 'admin' && this.password !== '123456') {
-      	this.errMsg = '密码不正确'
-      	return false
+        this.errMsg = '密码不正确'
+        return false
       }
       this.errMsg = ''
       return true

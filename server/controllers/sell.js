@@ -9,7 +9,7 @@ module.exports = async (ctx, next) => {
     .orderBy('sell.id', 'desc')
   let sellList
   if (userid) {
-    sellList = await mysqlSelect.where('sell.openId', userid)
+    sellList = await mysqlSelect.where('sell.userid', userid)
   } else {
     sellList = await mysqlSelect.limit(size).offset(Number(page) * size)
   }

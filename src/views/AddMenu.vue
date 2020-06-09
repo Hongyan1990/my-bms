@@ -13,20 +13,23 @@
 		  </el-form>
 	      <div slot="footer" class="dialog-footer">
 	        <el-button @click="closeAddMenuDialog">取 消</el-button>
-	        <el-button type="primary" @click="addMyMenu" :disabled="validateErr">确 定</el-button>
+	        <el-button type="primary" @click="applyMyLeave" :disabled="validateErr">确 定</el-button>
 	      </div>
 	    </el-dialog>
 	</div>
 </template>
 
 <script>
-	import {addMenu} from '../model/client-model.js'
+	import {applyLeave} from '../model/client-model.js'
 	export default {
 		name: 'addmenu',
 		props: {
 	      isShowDialog: {
 	        type: Boolean,
 	        default: false
+	      },
+	      userid: {
+	      	type: String
 	      }
 	    },
 		data () {
@@ -34,39 +37,44 @@
 				textarea: '',
 				formLabelWidth: '100px',
 				validateErr: false,
-				validateMsg: ''
+				validateMsg: '',
+				rowData: {}
 			}
 		},
 		computed: {
-	      dialogVisibale: {
-	        get () {
-	          return this.isShowDialog
-	        },
-	        set () {
-	          this.$emit('closeCreateMenuDialog')
-	        }
-	      },
+      dialogVisibale: {
+        get () {
+          return this.isShowDialog
+        },
+        set () {
+          this.$emit('closeCreateMenuDialog')
+        }
+      },
 
-	    },
-	    methods: {
-	    	closeAddMenuDialog () {
-	    		this.$emit('closeCreateMenuDialog')
-	    	},
-	    	addMyMenu () {
-	    		const jsonData = Object.assign({}, this.rowData, {id: Math.floor(Math.random () * 900) + 100 + ''}) 
-	    		addMenu(jsonData)
-	    			.then(res => {
-	    				this.$message({
-				          message: '新增菜单成功',
-				          type: 'success'
-				        });
-				        this.$emit('closeCreateMenuDialog', 'add')
-	    			})
-	    			.catch(err => {
-	    				this.$message.error('新增菜单失败');
-	    			})
-	    	}
-	    }
+    },
+    methods: {
+    	closeAddMenuDialog () {
+    		this.$emit('closeCreateMenuDialog')
+    	},
+    	applyMyLeave () {
+    		if(this.textarea === '') {
+    			this.$message.error('申请理由不能为空')
+    			return
+    		}
+    		const jsonData = {
+    			userid: this.userid,
+    			reason: this.textarea
+    		}
+    		applyLeave(jsonData)
+    			.then(res => {
+    				this.$message({
+		          message: '申请提交成功',
+		          type: 'success'
+		        });
+		        this.closeAddMenuDialog('success')
+    			})
+    	}
+    }
 	}
 
 </script>

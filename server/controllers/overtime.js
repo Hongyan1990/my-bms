@@ -1,7 +1,7 @@
 const DB = require('../db.js')
 
 module.exports = async (ctx) => {
-	const {userid} = ctx.request.body
+	const {userid} = ctx.request.query
 	try {
 		await DB('attendance')
 			.where('userid', userid)
