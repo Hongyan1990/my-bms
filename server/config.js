@@ -2,11 +2,11 @@ const CONF = {
     port: '5757',
     host: 'localhost',
     mysql: {
-        host: '119.23.72.26',
+        host: '',
         port: 3306,
-        user: 'root',
-        db: 'bms',
-        pass: 'hong180991..',
+        user: '',
+        db: '',
+        pass: '',
         char: 'utf8mb4'
     }
 }
