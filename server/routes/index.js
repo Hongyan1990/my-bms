@@ -37,4 +37,7 @@ router.get('/signdata', controllers.signdata)
 // 获取员工绩效
 router.get('/performance', controllers.performance)
 
+// 修改员工绩效
+router.get('/updatePerform', controllers.updatePerform)
+
 module.exports = router

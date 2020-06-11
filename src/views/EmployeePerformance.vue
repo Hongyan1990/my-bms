@@ -25,7 +25,14 @@
 	        <span style="margin-left: 10px">{{ scope.row.index }}</span>
 	      </template>
 	    </el-table-column>
-	    
+	    <el-table-column label="操作" width="150">
+	      <template slot-scope="scope">
+					<el-button
+	          size="mini"
+	          type="primary" plain
+	          @click="handleEdit(scope.$index, scope.row)">修改成绩</el-button>
+	      </template>
+	    </el-table-column>
 	  </el-table>
 	  <div class="page">
       <el-pagination
@@ -35,19 +42,28 @@
         :total="count">
       </el-pagination>
     </div>
+    <edit-perform 
+			:isShowDialog="dialogFormVisible"
+			:rowData="rowData"
+			@closeCreateMenuDialog="closeCreateMenuDialog">
+		</edit-perform>
 	</div>
 </template>
 <script>
 	import moment from 'moment'
 	import {getPerformance, approveLeave} from '../model/client-model.js'
+	import EditPerform from './EditPerform.vue'
 	export default {
 		name: 'employee-performance',
 		props: ["imgUrl"],
+		components: {EditPerform},
 		data() {
 			return {
 				performanceData: [],
 				loading: false,
 				count: 0,
+				rowData: {},
+				dialogFormVisible: false,
 				pageParams: {
           p: 1,
           page_size: 5
@@ -72,7 +88,17 @@
     				.catch(err => {
     					
     				})
-			}
+			},
+			handleEdit(i, row) {
+				this.dialogFormVisible = true
+				this.rowData = row
+			},
+			closeCreateMenuDialog (flag) {
+				this.dialogFormVisible = false
+				if(flag === 'success') {
+					this.getAllSignInfoByPage(this.pageParams.p)
+				}
+			},
 		},
 		mounted() {
 			this.getAllSignInfoByPage(this.pageParams.p)

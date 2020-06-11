@@ -43,9 +43,9 @@
 					      </template>
 					    </el-table-column>
 					    <el-table-column
-					      label="本月迟到次数">
+					      label="考勤成绩">
 					      <template slot-scope="scope">
-					        <span>{{scope.row.late_count}}</span>
+					        <span>{{scope.row.performance}}</span>
 					      </template>
 					    </el-table-column>
 					    <el-table-column

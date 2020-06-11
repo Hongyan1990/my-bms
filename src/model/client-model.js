@@ -67,5 +67,9 @@ module.exports = {
   },
   login (username) {
     return handleRequest(request.get(`api/login/?user_name=${username}`))
-  }
+  },
+  updatePerform ({userid, score}) {
+    return handleRequest(request.get(`api/updatePerform/?userid=${userid}&score=${score}`))
+  },
+
 }
