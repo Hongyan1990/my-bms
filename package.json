@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Hongyan1990/my-order#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "element-ui": "^2.13.2",
     "moment": "^2.26.0",
     "sha1": "^1.1.1",
